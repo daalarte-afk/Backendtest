@@ -53,7 +53,7 @@ app.post('/auth/register', async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
         const [result] = await pool.execute(
-            'INSERT INTO users (username, password, role) VALUES (?, ?, ?)',
+            'INSERT INTO users (username, hashed_password, role) VALUES (?, ?, ?)',
             [username, hashedPassword, 'user']
         );
         res.status(201).json({ message: "User registered successfully", userId: result.insertId });
@@ -70,7 +70,7 @@ app.post('/auth/login', async (req, res) => {
         if (rows.length === 0) return res.status(401).json({ error: "Invalid username or password" });
 
         const user = rows[0];
-        const validPassword = await bcrypt.compare(password, user.password);
+        const validPassword = await bcrypt.compare(password, user.hashed_password);
         if (!validPassword) return res.status(401).json({ error: "Invalid username or password" });
 
         // Generate JWT Payloads
