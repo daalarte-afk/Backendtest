@@ -1,8 +1,8 @@
 # Node modules
-node_modules/
+/node_modules/
 
 # Build output
-dist/
+/dist/
 
 # Environment variables
 .env
@@ -21,3 +21,5 @@ Thumbs.db
 .idea/
 .vscode/
 *.swp
+
+package-lock.json
