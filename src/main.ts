@@ -9,8 +9,7 @@ async function bootstrap() {
     const port = Number(process.env.PORT) || 3000;
     
     app.enableCors({
-        origin: 'http://localhost:3000',
-        credentials: true,
+        origin: true,
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
         allowedHeaders: ['Content-Type', 'Authorization'],
     });
@@ -37,3 +36,4 @@ async function bootstrap() {
 }
 
 bootstrap();
+    
