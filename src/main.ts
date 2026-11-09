@@ -7,11 +7,16 @@ async function bootstrap() {
     dotenv.config();
     const app = await NestFactory.create(AppModule);
     const port = Number(process.env.PORT) || 3000;
-    app.enableCors();
+    
+    app.enableCors({
+        origin: 'http://localhost:3000',
+        credentials: true,
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+    });
 
     app.getHttpAdapter().get('/', (req, res) => res.send({ message: 'Server Running Successfully!' }));
 
-    // 🔍 TROUBLESHOOTING LOG: This will print every single route your server actually sees
     const server = app.getHttpServer();
     const router = server._events.request._router;
     console.log('--- ALL REGISTERED ROUTES ON THIS SERVER ---');
