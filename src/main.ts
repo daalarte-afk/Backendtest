@@ -16,19 +16,6 @@ async function bootstrap() {
 
     app.getHttpAdapter().get('/', (req, res) => res.send({ message: 'Server Running Successfully!' }));
 
-    console.log('--- ALL REGISTERED ROUTES ON THIS SERVER ---');
-    const routerInstance = app.getHttpAdapter().getInstance();
-    const routes = routerInstance?._router?.stack ?? routerInstance?.router?.stack ?? [];
-    routes.forEach((layer: any) => {
-        if (layer.route) {
-            const methods = Object.keys(layer.route.methods)
-                .filter((method) => layer.route.methods[method])
-                .map((method) => method.toUpperCase());
-            console.log(`ROUTE: [${methods.join(', ')}] -> ${layer.route.path}`);
-        }
-    });
-    console.log('--------------------------------------------');
-
     await app.listen(port, '0.0.0.0');
     console.log(`Server listening on http://localhost:${port}`);
 }
