@@ -16,8 +16,6 @@ async function bootstrap() {
 
     app.getHttpAdapter().get('/', (req, res) => res.send({ message: 'Server Running Successfully!' }));
 
-    const server = app.getHttpServer();
-    const router = server._events.request._router;
     console.log('--- ALL REGISTERED ROUTES ON THIS SERVER ---');
     const routerInstance = app.getHttpAdapter().getInstance();
     const routes = routerInstance?._router?.stack ?? routerInstance?.router?.stack ?? [];
@@ -36,4 +34,3 @@ async function bootstrap() {
 }
 
 bootstrap();
-    
